@@ -21,6 +21,16 @@ function hg_change_title( $title, $id ) {
   return $title;
 }
 
+add_action('admin_menu', 'hg_adsmanager_menu');
+
+function hg_adsmanager_menu(){
+    add_menu_page('Ads Manager', 'Ads Manager', 'manage_options', 'hg-adsmanager', 'hg_adsmanager_page');
+}
+
+function hg_adsmanager_page(){
+    echo '<h1>Hello world</h1>';
+}
+
 add_action( 'widgets_init', function(){
     register_widget( 'HG_AdsManager_Widget' );
 });
