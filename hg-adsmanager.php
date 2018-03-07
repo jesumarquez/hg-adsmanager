@@ -15,12 +15,19 @@
 
 defined( 'ABSPATH' ) or die( '¡Sin trampas!' );
 
+/**
+ * FILTER
+ */
 add_filter( 'the_title', 'hg_change_title', 10, 2 );
 function hg_change_title( $title, $id ) {
   $title = '[Exclusiva] ' . $title;
   return $title;
 }
 
+
+/**
+ * PLUGIN PAGE
+ */
 add_action('admin_menu', 'hg_adsmanager_menu');
 
 function hg_adsmanager_menu(){
@@ -31,6 +38,10 @@ function hg_adsmanager_page(){
     echo '<h1>Hello world</h1>';
 }
 
+
+/**
+ * WIDGET
+ */
 add_action( 'widgets_init', function(){
     register_widget( 'HG_AdsManager_Widget' );
 });
