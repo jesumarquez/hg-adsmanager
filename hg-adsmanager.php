@@ -113,6 +113,9 @@ function hg_adsmanager_country_page(){
                                             <span class="inline hide-if-no-js">
                                                 <a href="#" class="editinline aria-button-if-js" aria-label="Quick edit “Argentina” inline" role="button">Quick&nbsp;Edit</a> | 
                                             </span>
+                                            <span class="delete">
+                                                <a href="edit-tags.php?action=delete&amp;taxonomy=category&amp;tag_ID=2&amp;_wpnonce=774b873b26" class="delete-tag aria-button-if-js" aria-label="Delete “prueba”" role="button">Delete</a>
+                                            </span>
                                             <span class="view">
                                                 <a href="http://localhostz:8088/WP/category/Argentina/" aria-label="View “Argentina” archive">View</a>
                                             </span>
