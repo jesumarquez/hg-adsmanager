@@ -31,11 +31,117 @@ function hg_change_title( $title, $id ) {
 add_action('admin_menu', 'hg_adsmanager_menu');
 
 function hg_adsmanager_menu(){
-    add_menu_page('Ads Manager', 'Ads Manager', 'manage_options', 'hg-adsmanager', 'hg_adsmanager_page');
+    add_menu_page('Ads Manager', 'Ads Manager', 'manage_options', 'hg-adsmanager', 'hg_adsmanager_country_page');
+    add_submenu_page('hg-adsmanager', 'Ads Manager - Country', 'Country', 'manage_options','ng-adsmanager-country','hg_adsmanager_country_page');
 }
 
-function hg_adsmanager_page(){
-    echo '<h1>Hello world</h1>';
+function hg_adsmanager_country_page(){
+    $categories = [];
+    
+    if(isset($_POST['submit'])){
+        echo $_POST['country-name'];
+        $categories[] = $_POST['country-name'];
+    }
+    
+   ?>
+    <div class="wrap nosubsub">
+        <h1 class="wp-heading-inline">Country</h1>
+        <hr class="wp-header-end">
+        <div id="col-container" class="wp-clearfix">
+            
+            <!--LEFT-->
+            <div id="col-left">
+                <div class="col-wrap">
+                    <div class="form-wrap">
+                        <h2>Add New Country</h2>
+                        <form action="" id="addcountry" class="validate" method="post">
+                            <input type="hidden" name="page" value="ng-adsmanager-country">
+                            <div class="form-field form-required term-name-wrap">
+                                <label for="country-name">Name</label>
+                                <input name="country-name" id="country-name" type="text" value="" size="40" aria-required="true">
+                            </div>
+                            <p class="submit">
+                                <input type="submit" name="submit" id="submit" class="button button-primary" value="Add New Country">
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!--RIGHT-->
+            <div id="col-right">
+                <div class="col-wrap">
+                    <h2 class="screen-reader-text">Countries List</h2>
+                    <table class="wp-list-table widefat fixed striped tags">
+                        <thead>
+                            <tr>
+                                <td id="cb" class="manage-column column-cb check-column">
+                                    <label class="screen-reader-text" for="cb-select-all-1">Select All</label>
+                                    <input id="cb-select-all-1" type="checkbox">
+                                </td>
+                                <th scope="col" id="name" class="manage-column column-name column-primary sortable desc">
+                                    <a href="http://localhostz:8088/WP/wp-admin/edit-tags.php?taxonomy=category&amp;orderby=name&amp;order=asc">
+                                    <span>Name</span>
+                                    <span class="sorting-indicator"></span>
+                                    </a>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="the-list" data-wp-lists="list:tag">
+                            
+                            <?php foreach($categories as &$category) { ?><!-- foreach categories -->
+
+                                <tr id="tag-1">
+                                    <th scope="row" class="check-column">&nbsp;</th>
+                                    <td class="name column-name has-row-actions column-primary" data-colname="Name">
+                                        <strong>
+                                            <a class="row-title" href="http://localhostz:8088/WP/wp-admin/term.php?taxonomy=category&amp;tag_ID=1&amp;post_type=post&amp;wp_http_referer=%2FWP%2Fwp-admin%2Fedit-tags.php%3Ftaxonomy%3Dcategory" aria-label="“Argentina” (Edit)"><?php echo $category ?></a>
+                                        </strong>
+                                        <br>
+                                        <div class="hidden" id="inline_1">
+                                            <div class="name"><?php echo $category ?></div>
+                                            <div class="slug"><?php echo $category ?></div>
+                                            <div class="parent">0</div>
+                                        </div>
+                                        <div class="row-actions">
+                                            <span class="edit">
+                                                <a href="http://localhostz:8088/WP/wp-admin/term.php?taxonomy=category&amp;tag_ID=1&amp;post_type=post&amp;wp_http_referer=%2FWP%2Fwp-admin%2Fedit-tags.php%3Ftaxonomy%3Dcategory" aria-label="Edit “Argentina”">Edit</a> | 
+                                            </span>
+                                            <span class="inline hide-if-no-js">
+                                                <a href="#" class="editinline aria-button-if-js" aria-label="Quick edit “Argentina” inline" role="button">Quick&nbsp;Edit</a> | 
+                                            </span>
+                                            <span class="view">
+                                                <a href="http://localhostz:8088/WP/category/Argentina/" aria-label="View “Argentina” archive">View</a>
+                                            </span>
+                                        </div>
+                                        <button type="button" class="toggle-row"><span class="screen-reader-text">Show more details</span></button>
+                                    </td>
+
+                                </tr>
+                            
+                            <?php } ?><!-- end foreach categories -->
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td class="manage-column column-cb check-column">
+                                    <label class="screen-reader-text" for="cb-select-all-2">Select All</label>
+                                    <input id="cb-select-all-2" type="checkbox">
+                                </td>
+                                <th scope="col" class="manage-column column-name column-primary sortable desc">
+                                    <a href="http://localhostz:8088/WP/wp-admin/edit-tags.php?taxonomy=category&amp;orderby=name&amp;order=asc">
+                                        <span>Name</span>
+                                        <span class="sorting-indicator"></span>
+                                    </a>
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+   <?php
 }
 
 
