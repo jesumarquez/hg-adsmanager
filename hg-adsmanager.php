@@ -35,17 +35,6 @@ function hg_adsmanager_menu(){
     add_submenu_page('hg-adsmanager', 'Ads Manager - Country', 'Country', 'manage_options','ng-adsmanager-country','hg_adsmanager_country_page');
 }
 
-function hg_adsmanager_insert_country($name){
-    global $wpdb, $table_name;
-    $wpdb->insert(
-        $table_name, 
-        array(
-            'time' => current_time('mysql'),
-            'name' => $name
-        )
-    );
-}
-
 function hg_adsmanager_country_page(){
     $countryObj = new HG_AdsManager_Country();
 
