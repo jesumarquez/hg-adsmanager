@@ -35,26 +35,6 @@ function hg_adsmanager_menu(){
     add_submenu_page('hg-adsmanager', 'Ads Manager - Country', 'Country', 'manage_options','ng-adsmanager-country','hg_adsmanager_country_page');
 }
 
-$table_name = '';
-
-function hg_adsmanager_init_table(){
-    global $wpdb, $categories, $table_name;
-
-    $table_name = $wpdb->prefix . 'hg_adsmanager_country';
-
-    $charset_collate = $wpdb->get_charset_collate();
-
-    $sql = "CREATE TABLE $table_name (
-      id mediumint(9) NOT NULL AUTO_INCREMENT,
-      time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-      name tinytext NOT NULL,
-      PRIMARY KEY  (id)
-    ) $charset_collate;";
-    
-    require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-    dbDelta( $sql );
-}
-
 function hg_adsmanager_insert_country($name){
     global $wpdb, $table_name;
     $wpdb->insert(
@@ -66,22 +46,14 @@ function hg_adsmanager_insert_country($name){
     );
 }
 
-function hg_adsmanager_get_countries(){
-    global $wpdb, $table_name;
-    $result = $wpdb->get_results("SELECT name FROM {$table_name}", OBJECT );
-
-    return $result;
-}
-
 function hg_adsmanager_country_page(){
+    $countryObj = new HG_AdsManager_Country();
 
-    hg_adsmanager_init_table();
-    
     if(isset($_POST['submit'])){
-        hg_adsmanager_insert_country($_POST['country-name']);
+        $countryObj->add($_POST['country-name']);
     }
 
-    $categories = hg_adsmanager_get_countries();
+    $countries = $countryObj->getAll();
    ?>
     <div class="wrap nosubsub">
         <h1 class="wp-heading-inline">Country</h1>
@@ -129,18 +101,18 @@ function hg_adsmanager_country_page(){
 
                         <tbody id="the-list" data-wp-lists="list:tag">
                             
-                            <?php foreach($categories as $category) { ?><!-- foreach categories -->
+                            <?php foreach($countries as $country) { ?><!-- foreach categories -->
 
                                 <tr id="tag-1">
                                     <th scope="row" class="check-column">&nbsp;</th>
                                     <td class="name column-name has-row-actions column-primary" data-colname="Name">
                                         <strong>
-                                            <a class="row-title" href="http://localhostz:8088/WP/wp-admin/term.php?taxonomy=category&amp;tag_ID=1&amp;post_type=post&amp;wp_http_referer=%2FWP%2Fwp-admin%2Fedit-tags.php%3Ftaxonomy%3Dcategory" aria-label="“Argentina” (Edit)"><?php echo $category->name ?></a>
+                                            <a class="row-title" href="http://localhostz:8088/WP/wp-admin/term.php?taxonomy=category&amp;tag_ID=1&amp;post_type=post&amp;wp_http_referer=%2FWP%2Fwp-admin%2Fedit-tags.php%3Ftaxonomy%3Dcategory" aria-label="“Argentina” (Edit)"><?php echo $country->name ?></a>
                                         </strong>
                                         <br>
                                         <div class="hidden" id="inline_1">
-                                            <div class="name"><?php echo $category->name ?></div>
-                                            <div class="slug"><?php echo $category->name ?></div>
+                                            <div class="name"><?php echo $country->name ?></div>
+                                            <div class="slug"><?php echo $country->name ?></div>
                                             <div class="parent">0</div>
                                         </div>
                                         <div class="row-actions">
@@ -237,5 +209,42 @@ class HG_AdsManager_Widget extends WP_Widget {
         $instance = array();
         $instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
         return $instance;
+    }
+}
+
+class HG_AdsManager_Country {
+    private $table_name;
+    private $wpdb;
+    public function __construct(){
+        global $wpdb;
+        $this->wpdb = $wpdb;
+        $this->table_name = $wpdb->prefix . 'hg_adsmanager_country';
+
+        $charset_collate = $wpdb->get_charset_collate();
+
+        $sql = "CREATE TABLE $this->table_name (
+        id mediumint(9) NOT NULL AUTO_INCREMENT,
+        time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+        name tinytext NOT NULL,
+        PRIMARY KEY  (id)
+        ) $charset_collate;";
+        
+        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+        dbDelta( $sql );
+    }
+
+    public function getAll(){
+        $result = $this->wpdb->get_results("SELECT name FROM {$this->table_name}", OBJECT );
+        return $result;
+    }
+
+    public function add($name){
+        $this->wpdb->insert(
+            $this->table_name, 
+            array(
+                'time' => current_time('mysql'),
+                'name' => $name
+            )
+        );        
     }
 }
