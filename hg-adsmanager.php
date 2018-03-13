@@ -15,17 +15,20 @@
 
 defined( 'ABSPATH' ) or die( '¡Sin trampas!' );
 
-require_once('hg-adsmanager-country-entity.php');
 
 /**
  * FILTER
  */
-add_filter( 'the_title', 'hg_change_title', 10, 2 );
-function hg_change_title( $title, $id ) {
-  $title = '[Exclusiva] ' . $title;
-  return $title;
-}
+// add_filter( 'the_title', 'hg_change_title', 10, 2 );
+// function hg_change_title( $title, $id ) {
+//   $title = '[Exclusiva] ' . $title;
+//   return $title;
+// }
 
+// add_action('init', 'start_buffer_output');
+// function start_buffer_output() {
+//         ob_start();
+// }
 
 /**
  * PLUGIN PAGE
@@ -37,29 +40,35 @@ function hg_adsmanager_menu(){
     add_submenu_page('ng-adsmanager-country', 'Ads Manager - Countries', 'Countries', 'manage_options','ng-adsmanager-country', 'hg_adsmanager_country_page');
     add_submenu_page('ng-adsmanager-country', 'Ads Manager - Customers', 'Customers', 'manage_options','ng-adsmanager-customer', 'hg_adsmanager_customer_page');
 }
+require_once('hg-adsmanager-country-entity.php');
+require_once('hg-adsmanager-widget.php');
+require_once('../wp-includes/pluggable.php');
+
+$countryObj = new HG_AdsManager_Country();
+$hg_post_type = $_POST['hg_post_type'];
+$wp_list_table = _get_list_table('WP_Terms_List_Table');
+
+if(isset($hg_post_type) && $hg_post_type == 'post'){
+    $countryObj->add($_POST['country-name']);
+}
+else{
+    switch ($wp_list_table->current_action()) {
+        case 'delete':
+            if(isset($_REQUEST['country_ID'])){
+                $countryObj->delete($_REQUEST['country_ID']);
+                wp_redirect('admin.php?&page=ng-adsmanager-country', 202);
+            }
+            break;
+        default:
+            # code...
+            break;
+    }       
+}
 
 function hg_adsmanager_country_page(){
     $countryObj = new HG_AdsManager_Country();
-    $post_type = $_POST['post_type'];
-    $wp_list_table = _get_list_table('WP_Terms_List_Table');
-
-    if(isset($post_type) && $post_type == 'post'){
-        $countryObj->add($_POST['country-name']);
-    }
-    else{
-         switch ($wp_list_table->current_action()) {
-            case 'delete':
-                if(isset($_REQUEST['country_ID'])){
-                    $countryObj->delete($_REQUEST['country_ID']);
-                }
-                break;
-            default:
-                # code...
-                break;
-        }       
-    }
-
     $countries = $countryObj->getAll();
+    
    ?>
     <div class="wrap nosubsub">
         <h1 class="wp-heading-inline">Country</h1>
@@ -73,7 +82,7 @@ function hg_adsmanager_country_page(){
                         <h2>Add New Country</h2>
                         <form action="" id="addcountry" class="validate" method="post">
                             <input type="hidden" name="page" value="ng-adsmanager-country">
-                            <input type="hidden" name="post_type" value="post">
+                            <input type="hidden" name="hg_post_type" value="post">
                             <div class="form-field form-required term-name-wrap">
                                 <label for="country-name">Name</label>
                                 <input name="country-name" id="country-name" type="text" value="" size="40" aria-required="true">
@@ -173,51 +182,4 @@ add_action( 'widgets_init', function(){
     register_widget( 'HG_AdsManager_Widget' );
 });
 
-class HG_AdsManager_Widget extends WP_Widget {
-    // class constructor
-	public function __construct() {
-        $widget_ops = array( 
-            'classname' => 'hg_adsmanager_widget',
-            'description' => 'Administrador de Adsense',
-        );
-        parent::__construct( 'hg_adsmanager', 'Ads Manager', $widget_ops );        
-    }
-	
-	// output the widget content on the front-end
-	public function widget( $args, $instance ) {
-        echo $args['before_widget'];
-        if ( ! empty( $instance['title'] ) ) {
-            echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
-        }
-        ?>
-            <img src="<?php echo plugins_url( 'images/test.png', __FILE__ )  ?>"/>
-        <?php
-        echo $args['after_widget'];
-    }
 
-	// output the option form field in admin Widgets screen
-	public function form( $instance ) {
-        $title = ! empty( $instance['title'] ) ? $instance['title'] : esc_html__( 'Title', 'text_domain' );
-        ?>
-        <p>
-        <label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
-        <?php esc_attr_e( 'Title:', 'text_domain' ); ?>
-        </label> 
-        
-        <input 
-            class="widefat" 
-            id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" 
-            name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" 
-            type="text" 
-            value="<?php echo esc_attr( $title ); ?>">
-        </p>
-        <?php        
-    }
-
-	// save options
-	public function update( $new_instance, $old_instance ) {
-        $instance = array();
-        $instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
-        return $instance;
-    }
-}
