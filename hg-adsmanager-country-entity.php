@@ -1,4 +1,5 @@
 <?php
+
 class HG_AdsManager_Country {
     private $table_name;
     private $wpdb;

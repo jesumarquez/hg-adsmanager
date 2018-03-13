@@ -15,7 +15,7 @@
 
 defined( 'ABSPATH' ) or die( '¡Sin trampas!' );
 
-require_once('hg-adsmanager-country.php');
+require_once('hg-adsmanager-country-entity.php');
 
 /**
  * FILTER
@@ -33,15 +33,25 @@ function hg_change_title( $title, $id ) {
 add_action('admin_menu', 'hg_adsmanager_menu');
 
 function hg_adsmanager_menu(){
-    add_menu_page('Ads Manager', 'Ads Manager', 'manage_options', 'hg-adsmanager', 'hg_adsmanager_country_page');
-    add_submenu_page('hg-adsmanager', 'Ads Manager - Country', 'Country', 'manage_options','ng-adsmanager-country','hg_adsmanager_country_page');
+    add_menu_page('Ads Manager', 'Ads Manager', 'manage_options', 'ng-adsmanager-country', 'hg_adsmanager_country_page');
+    add_submenu_page('ng-adsmanager-country', 'Ads Manager - Country', 'Country', 'manage_options','ng-adsmanager-country', 'hg_adsmanager_country_page');
+    add_submenu_page('ng-adsmanager-country', 'Ads Manager - Customer', 'Customer', 'manage_options','ng-adsmanager-customer', 'hg_adsmanager_customer_page');
 }
 
 function hg_adsmanager_country_page(){
     $countryObj = new HG_AdsManager_Country();
+    $post_type = $_POST['post_type'];
 
-    if(isset($_POST['submit'])){
-        $countryObj->add($_POST['country-name']);
+    if(isset($post_type)){
+        switch ($post_type) {
+            case 'post':
+                $countryObj->add($_POST['country-name']);
+                break;
+            
+            default:
+                # code...
+                break;
+        }
     }
 
     $countries = $countryObj->getAll();
@@ -58,6 +68,7 @@ function hg_adsmanager_country_page(){
                         <h2>Add New Country</h2>
                         <form action="" id="addcountry" class="validate" method="post">
                             <input type="hidden" name="page" value="ng-adsmanager-country">
+                            <input type="hidden" name="post_type" value="post">
                             <div class="form-field form-required term-name-wrap">
                                 <label for="country-name">Name</label>
                                 <input name="country-name" id="country-name" type="text" value="" size="40" aria-required="true">
@@ -92,7 +103,7 @@ function hg_adsmanager_country_page(){
 
                         <tbody id="the-list" data-wp-lists="list:tag">
                             
-                            <?php foreach($countries as $country) { ?><!-- foreach categories -->
+                            <?php foreach($countries as $country) { ?><!-- foreach countries -->
 
                                 <tr id="tag-1">
                                     <th scope="row" class="check-column">&nbsp;</th>
