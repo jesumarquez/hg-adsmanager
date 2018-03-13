@@ -22,7 +22,7 @@ class HG_AdsManager_Country {
     }
 
     public function getAll(){
-        $result = $this->wpdb->get_results("SELECT name FROM {$this->table_name}", OBJECT );
+        $result = $this->wpdb->get_results("SELECT id, name FROM {$this->table_name}", OBJECT );
         return $result;
     }
 
@@ -34,6 +34,15 @@ class HG_AdsManager_Country {
                 'name' => $name
             )
         );        
+    }
+
+    public function delete($id){
+        // error_log('plugin error countryid: ' . $id, 3, 'c:/temp/php.log');
+        $this->wpdb->delete(
+            $this->table_name,
+            array( 'id' => $id),
+            array( '%d' )
+        );
     }
 }
 ?>

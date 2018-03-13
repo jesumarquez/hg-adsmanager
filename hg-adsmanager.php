@@ -34,24 +34,29 @@ add_action('admin_menu', 'hg_adsmanager_menu');
 
 function hg_adsmanager_menu(){
     add_menu_page('Ads Manager', 'Ads Manager', 'manage_options', 'ng-adsmanager-country', 'hg_adsmanager_country_page');
-    add_submenu_page('ng-adsmanager-country', 'Ads Manager - Country', 'Country', 'manage_options','ng-adsmanager-country', 'hg_adsmanager_country_page');
-    add_submenu_page('ng-adsmanager-country', 'Ads Manager - Customer', 'Customer', 'manage_options','ng-adsmanager-customer', 'hg_adsmanager_customer_page');
+    add_submenu_page('ng-adsmanager-country', 'Ads Manager - Countries', 'Countries', 'manage_options','ng-adsmanager-country', 'hg_adsmanager_country_page');
+    add_submenu_page('ng-adsmanager-country', 'Ads Manager - Customers', 'Customers', 'manage_options','ng-adsmanager-customer', 'hg_adsmanager_customer_page');
 }
 
 function hg_adsmanager_country_page(){
     $countryObj = new HG_AdsManager_Country();
     $post_type = $_POST['post_type'];
+    $wp_list_table = _get_list_table('WP_Terms_List_Table');
 
-    if(isset($post_type)){
-        switch ($post_type) {
-            case 'post':
-                $countryObj->add($_POST['country-name']);
+    if(isset($post_type) && $post_type == 'post'){
+        $countryObj->add($_POST['country-name']);
+    }
+    else{
+         switch ($wp_list_table->current_action()) {
+            case 'delete':
+                if(isset($_REQUEST['country_ID'])){
+                    $countryObj->delete($_REQUEST['country_ID']);
+                }
                 break;
-            
             default:
                 # code...
                 break;
-        }
+        }       
     }
 
     $countries = $countryObj->getAll();
@@ -125,7 +130,7 @@ function hg_adsmanager_country_page(){
                                                 <a href="#" class="editinline aria-button-if-js" aria-label="Quick edit “Argentina” inline" role="button">Quick&nbsp;Edit</a> | 
                                             </span>
                                             <span class="delete">
-                                                <a href="edit-tags.php?action=delete&amp;taxonomy=category&amp;tag_ID=2&amp;_wpnonce=774b873b26" class="delete-tag aria-button-if-js" aria-label="Delete “prueba”" role="button">Delete</a>
+                                                <a href="admin.php?action=delete&amp;page=ng-adsmanager-country&amp;country_ID=<?php echo $country->id ?>" class="delete-tag aria-button-if-js" aria-label="Delete “<?php echo $country->name ?>”" role="button">Delete</a>
                                             </span>
                                             <span class="view">
                                                 <a href="http://localhostz:8088/WP/category/Argentina/" aria-label="View “Argentina” archive">View</a>
