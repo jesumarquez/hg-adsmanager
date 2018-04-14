@@ -1,0 +1,16 @@
+{
+    "name": "hornerogeek/hg-adsmanager",
+    "description": "Ads Manager",
+    "authors": [
+        {
+            "name": "Jesú Márquez",
+            "email": "jesumarquez@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "HG\\": "./inc"
+        }
+    }
+}

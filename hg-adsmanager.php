@@ -3,36 +3,41 @@
  * Plugin Name: Ads Manager
  * Plugin URI: http://hornerogeek.com.ar/adsmanager
  * Description: Administrador de adsense.
- * Version: 1.0.0
+ * Version: 0.1.0
  * Author: Jesú Márquez
  * Author URI: http://hornerogeek.com.ar/adsmanager
- * Requires at least: 4.0
- * Tested up to: 4.3
  *
- * Text Domain: adsmanager
+ * Text Domain: hg-adsmanager
  * Domain Path: /languages/
+ * @package hg-adsmanager
  */
 
 defined( 'ABSPATH' ) or die( '¡Sin trampas!' );
 
+if( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
+    require_once dirname( __FILE__ ) . '/vendor/autoload.php';
+}
 
-/**
- * FILTER
- */
-// add_filter( 'the_title', 'hg_change_title', 10, 2 );
-// function hg_change_title( $title, $id ) {
-//   $title = '[Exclusiva] ' . $title;
-//   return $title;
-// }
+// activation
+function activate_adsmanager_plugin() {
+    HG\Base\Activate::activate();
+}
+register_activation_hook( __FILE__, 'activate_adsmanager_plugin' );
 
-// add_action('init', 'start_buffer_output');
-// function start_buffer_output() {
-//         ob_start();
-// }
 
-/**
- * PLUGIN PAGE
- */
+// deactivate
+function deactivate_adsmanager_plugin() {
+    HG\Base\Deactivate::deactivate();
+}
+register_deactivation_hook( __FILE__, 'deactivate_adsmanager_plugin' );
+
+// registration
+if( class_exists( 'Inc\\Init' ) ) { 
+    HG\Init::register_services();
+}
+
+
+/* PLUGIN PAGE
 add_action('admin_menu', 'hg_adsmanager_menu');
 
 function hg_adsmanager_menu(){
@@ -174,12 +179,12 @@ function hg_adsmanager_country_page(){
    <?php
 }
 
-
-/**
- * WIDGET
  */
+/*
+ * WIDGET
+
 add_action( 'widgets_init', function(){
     register_widget( 'HG_AdsManager_Widget' );
 });
 
-
+ */
