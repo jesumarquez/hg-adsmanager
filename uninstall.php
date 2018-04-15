@@ -13,4 +13,4 @@ if( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
 }
 
 // clear database stored data
-//Inc\Base\DataBase::uninstall();
+HG\Base\DataBase::uninstall();

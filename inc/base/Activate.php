@@ -4,11 +4,11 @@
  */
 
 namespace HG\Base;
-//use \HG\Base\DataBase;
+use \HG\Base\DataBase;
 
 class Activate {
     public static function activate() {
-        //DataBase::install();
+        DataBase::install();
         flush_rewrite_rules();
     }
 }

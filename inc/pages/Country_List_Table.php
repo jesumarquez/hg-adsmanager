@@ -6,9 +6,11 @@
 namespace HG\Pages;
 
 use \HG\Base;
+use \HG\Base\Entities;
 
 class Country_List_Table extends Base\WP_List_Table {
     var $example_data = [];
+    var $country_entity;
     // var $example_data = array (
     //     array('ID' => 1,'booktitle' => 'Quarter Share', 'author' => 'Nathan Lowell',
     //         'isbn' => '978-0982514542'),
@@ -30,6 +32,7 @@ class Country_List_Table extends Base\WP_List_Table {
             'singular'	=>	'country',		// Singular label for an object being listed, e.g. 'post'.
             'ajax'		=>	false,		// If true, the parent class will call the _js_vars() method in the footer		
         ) );
+        $this->country_entity = new Entities\CountryEntity();
     }
     
     public function prepare_items() {
@@ -38,7 +41,7 @@ class Country_List_Table extends Base\WP_List_Table {
         $sortable = $this->get_sortable_columns();
         $this->_column_headers = array($columns, $hidden, $sortable);
         usort( $this->example_data, array( &$this, 'usort_reorder' ) );
-        $this->items = $this->example_data;
+        $this->items = $this->country_entity->getAll();
     }
     
     public function get_columns() {
