@@ -11,7 +11,7 @@ class AdminCallbacks extends BaseController {
     function adminDashboard() {
         return require_once( "$this->plugin_path/templates/admin.php" );
     }
-    function adminCity() {
+    function adminCountry() {
         return require_once( "$this->plugin_path/templates/country.php" );
     }
 }

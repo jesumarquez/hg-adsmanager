@@ -10,7 +10,10 @@
                         <label for="country-name">Name</label>
                         <input name="country-name" id="country-name" type="text" aria-required="true">
                         <p>Country name.</p>
-                    </div>                    
+                    </div>
+                    <div class="submit">
+                        <input type="submit" id="submit" name="submit" class="button button-primary" value="Add New Country">
+                    </div>
                 </form>
             </div>
         </div>
