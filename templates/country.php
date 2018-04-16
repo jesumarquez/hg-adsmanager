@@ -5,7 +5,7 @@
         <div id="col-left">
             <div class="form-wrap">
                 <h2>Add New Country</h2>
-                <form id="addCountry" class="validate">
+                <form id="hg_add_country_ajax_form" class="validate">
                     <div class="form-field form-required term-name-wrap">
                         <label for="country-name">Name</label>
                         <input name="country-name" id="country-name" type="text" aria-required="true">
@@ -15,6 +15,7 @@
                         <input type="submit" id="submit" name="submit" class="button button-primary" value="Add New Country">
                     </div>
                 </form>
+                <div id="hg_country_form_feedback"></div>
             </div>
         </div>
         <div id="col-right">
