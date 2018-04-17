@@ -40,8 +40,9 @@ class Country_List_Table extends Base\WP_List_Table {
         $hidden = array();
         $sortable = $this->get_sortable_columns();
         $this->_column_headers = array($columns, $hidden, $sortable);
+        $this->example_data = $this->country_entity->getAll();
         usort( $this->example_data, array( &$this, 'usort_reorder' ) );
-        $this->items = $this->country_entity->getAll();
+        $this->items = $this->example_data;
     }
     
     public function get_columns() {
