@@ -38,4 +38,12 @@ class CountryEntity {
             array( '%d' )
         );
     }
+
+    public function update($id, $name) {
+        $this->wpdb->update(
+            $this->table_name,
+            array( 'name' => $name ),
+            array( 'id' => $id )
+        );
+    }
 }

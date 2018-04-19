@@ -63,11 +63,15 @@ class Country_List_Table extends Base\WP_List_Table {
     }
 
     function column_name($item) {
+        // $actions = array(
+        //           'edit'      => sprintf('<a href="?page=%s&action=%s&country=%s">Edit</a>',$_REQUEST['page'],'edit',$item['ID']),
+        //           'delete'    => sprintf('<a href="?page=%s&action=%s&country=%s">Delete</a>',$_REQUEST['page'],'delete',$item['ID']),
+        //       );
         $actions = array(
-                  'edit'      => sprintf('<a href="?page=%s&action=%s&country=%s">Edit</a>',$_REQUEST['page'],'edit',$item['ID']),
-                  'delete'    => sprintf('<a href="?page=%s&action=%s&country=%s">Delete</a>',$_REQUEST['page'],'delete',$item['ID']),
-              );
-      
+            'edit'      => sprintf('<a href="#" onclick="editCountry(%d,\'%s\')">Edit</a>', $item['id'], $item['name']),
+            'delete'    => sprintf('<a href="?page=%s&action=%s&country=%s">Delete</a>',$_REQUEST['page'],'delete',$item['ID']),
+        );
+
         return sprintf('%1$s %2$s', $item['name'], $this->row_actions($actions) );
     }
     

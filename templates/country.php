@@ -9,10 +9,13 @@
                     <div class="form-field form-required term-name-wrap">
                         <label for="country-name">Name</label>
                         <input name="country-name" id="country-name" type="text" aria-required="true">
+                        <input type="hidden" id="country-id">
                         <p>Country name.</p>
                     </div>
                     <div class="submit">
                         <input type="submit" id="submit" name="submit" class="button button-primary" value="Add New Country">
+                        <button type="button" id="save" class="button button-primary hidden" onclick="updateCountry()">Save</button>
+                        <button type="reset" id="cancel" class="button button-secondary hidden" onclick="cancel()">Cancel</button>
                     </div>
                 </form>
                 <div id="hg_country_form_feedback"></div>
