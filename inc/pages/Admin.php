@@ -54,6 +54,14 @@ class Admin extends BaseController {
                 'capability'    => 'manage_options',
                 'menu_slug'     => 'hg_adsmanager_country',
                 'callback'      => array( $this->callbacks, 'adminCountry') 
+            ],
+            [
+                'parent_slug'   => 'hg_adsmanager',
+                'page_title'    => 'HG Ads Manager',
+                'menu_title'    => 'Customer',
+                'capability'    => 'manage_options',
+                'menu_slug'     => 'hg_adsmanager_customer',
+                'callback'      => array( $this->callbacks, 'adminCustomer') 
             ]
         ];
     }

@@ -1,11 +1,12 @@
 jQuery(document).ready(function($) {
 
-    $( '#hg_add_country_ajax_form' ).submit( function(event){
+    $( '#hg_add_customer_ajax_form' ).submit( function(event){
         event.preventDefault();
 
         var data = {
-            'action': 'country_form_post',
-            'countryName': $("#country-name").val()     // We pass php values differently!
+            'action': 'customer_form_post',
+            'customerName': $("#customer-name").val(),     // We pass php values differently!
+            'countryId': $("#country-id").val()
         };
 
         $.ajax({
@@ -19,7 +20,7 @@ jQuery(document).ready(function($) {
             // $(" #nds_form_feedback ").html( "<div class='notice notice-success is-dismissible'>             <p><strong>Settings saved.</strong></p>            <button type='button' class='notice-dismiss'>               <span class='screen-reader-text'>Dismiss this notice.</span>            </button>        </div>" );
         })
         .fail(function (resp){
-            $(" #hg_country_form_feedback ").html( "<h2>" +  resp.responseJSON.data +  ".</h2><br>" );                  
+            $(" #hg_customer_form_feedback ").html( "<h2>" +  resp.responseJSON.data +  ".</h2><br>" );                  
         })
         .always( function() {
             event.target.reset();
@@ -29,28 +30,30 @@ jQuery(document).ready(function($) {
     
 });
 
-function editCountry(id, name) {
+function editCustomer(id, name, countryId) {
     event.preventDefault();
-    jQuery('#country-id').val(id);
-    jQuery('#country-name').val(name);
+    jQuery('#customer-id').val(id);
+    jQuery('#customer-name').val(name);
+    jQuery('#country-id').val(countryId);
     jQuery('#save').removeClass('hidden');  
     jQuery('#cancel').removeClass('hidden');  
     jQuery('#submit').addClass('hidden');  
 }
 
-function cancelEditCountry() {
-    jQuery('#country-id').val('');
+function cancelEditCustomer() {
+    jQuery('#customer-id').val('');
     jQuery('#save').addClass('hidden');  
     jQuery('#cancel').addClass('hidden');  
     jQuery('#submit').removeClass('hidden');    
 }
 
-function updateCountry() {
+function updateCustomer() {
     event.preventDefault();
     var data = {
-        'action': 'country_form_put',
-        'countryId': jQuery("#country-id").val(),     // We pass php values differently!
-        'countryName': jQuery("#country-name").val()     // We pass php values differently!
+        'action': 'customer_form_put',
+        'customerId': jQuery("#customer-id").val(),     // We pass php values differently!
+        'customerName': jQuery("#customer-name").val(),     // We pass php values differently!
+        'countryId': jQuery("#country-id").val()     
     };
 
     jQuery.ajax({
@@ -64,18 +67,18 @@ function updateCountry() {
         // $(" #nds_form_feedback ").html( "<div class='notice notice-success is-dismissible'>             <p><strong>Settings saved.</strong></p>            <button type='button' class='notice-dismiss'>               <span class='screen-reader-text'>Dismiss this notice.</span>            </button>        </div>" );
     })
     .fail(function (resp){
-        jQuery(" #hg_country_form_feedback ").html( "<h2>" +  resp.responseJSON.data +  ".</h2><br>" );                  
+        jQuery(" #hg_customer_form_feedback ").html( "<h2>" +  resp.responseJSON.data +  ".</h2><br>" );                  
     })
     .always( function() {
         event.target.reset();
     });;
 }
 
-function deleteCountry(id) {
+function deleteCustomer(id) {
     event.preventDefault();
     var data = {
-        'action': 'country_form_delete',
-        'countryId': id,     // We pass php values differently!
+        'action': 'customer_form_delete',
+        'customerId': id,     // We pass php values differently!
     };
 
     jQuery.ajax({
@@ -89,7 +92,7 @@ function deleteCountry(id) {
         // $(" #nds_form_feedback ").html( "<div class='notice notice-success is-dismissible'>             <p><strong>Settings saved.</strong></p>            <button type='button' class='notice-dismiss'>               <span class='screen-reader-text'>Dismiss this notice.</span>            </button>        </div>" );
     })
     .fail(function (resp){
-        jQuery(" #hg_country_form_feedback ").html( "<h2>" +  resp.responseJSON.data +  ".</h2><br>" );                  
+        jQuery(" #hg_customer_form_feedback ").html( "<h2>" +  resp.responseJSON.data +  ".</h2><br>" );                  
     })
     .always( function() {
         event.target.reset();

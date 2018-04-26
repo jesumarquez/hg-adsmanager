@@ -11,6 +11,7 @@ final class Init {
         return [
             Pages\Admin::class,
             Pages\Country::class,
+            Pages\Customer::class,
             Base\Enqueue::class
         ];
     }

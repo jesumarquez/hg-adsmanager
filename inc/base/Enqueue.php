@@ -16,6 +16,7 @@ class Enqueue extends BaseController {
         //enqueue all our scripts
         //wp_enqueue_style( 'mypluginstyle', $this->plugin_url . 'assets/mystyle.css' );
         wp_enqueue_script( 'hgcountryscript', $this->plugin_url . 'assets/country.js' );
+        wp_enqueue_script( 'hgcustomerscript', $this->plugin_url . 'assets/customer.js' );
     }
 
 }

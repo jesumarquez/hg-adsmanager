@@ -8,17 +8,17 @@ namespace HG\Pages;
 use \HG\Base;
 use \HG\Base\Entities;
 
-class Country_List_Table extends Base\WP_List_Table {
+class Customer_List_Table extends Base\WP_List_Table {
     var $data = [];
-    var $country_entity;
+    var $customer_entity;
 
     public function __construct() {
 		parent::__construct( array( 
-            'plural'	=>	'countries',	// Plural value used for labels and the objects being listed.
-            'singular'	=>	'country',		// Singular label for an object being listed, e.g. 'post'.
+            'plural'	=>	'customers',	// Plural value used for labels and the objects being listed.
+            'singular'	=>	'customer',		// Singular label for an object being listed, e.g. 'post'.
             'ajax'		=>	false,		// If true, the parent class will call the _js_vars() method in the footer		
         ) );
-        $this->country_entity = new Entities\CountryEntity();
+        $this->customer_entity = new Entities\CustomerEntity();
     }
     
     public function prepare_items() {
@@ -26,14 +26,15 @@ class Country_List_Table extends Base\WP_List_Table {
         $hidden = array();
         $sortable = $this->get_sortable_columns();
         $this->_column_headers = array($columns, $hidden, $sortable);
-        $this->data = $this->country_entity->getAll();
+        $this->data = $this->customer_entity->getAll();
         usort( $this->data, array( &$this, 'usort_reorder' ) );
         $this->items = $this->data;
     }
     
     public function get_columns() {
         $columns = array(
-            'name' => 'Name'
+            'name' => 'Name',
+            'country_name' => 'Country'
         );
 
         return $columns;        
@@ -42,6 +43,8 @@ class Country_List_Table extends Base\WP_List_Table {
     function column_default ( $item, $column_name ) {
         switch ($column_name) {
             case 'name':
+            case 'country_id':
+            case 'country_name':
                 return $item[ $column_name ];
             default:
                 return print_r( $item, true );
@@ -54,8 +57,8 @@ class Country_List_Table extends Base\WP_List_Table {
         //           'delete'    => sprintf('<a href="?page=%s&action=%s&country=%s">Delete</a>',$_REQUEST['page'],'delete',$item['ID']),
         //       );
         $actions = array(
-            'edit'      => sprintf('<a href="#" onclick="editCountry(%d,\'%s\')">Edit</a>', $item['id'], $item['name']),
-            'delete'    => sprintf('<a href="#" onclick="deleteCountry(%d)">Delete</a>', $item['id']),
+            'edit'      => sprintf('<a href="#" onclick="editCustomer(%d, \'%s\', %d)">Edit</a>', $item['id'], $item['name'], $item['country_id']),
+            'delete'    => sprintf('<a href="#" onclick="deleteCustomer(%d)">Delete</a>', $item['id']),
         );
 
         return sprintf('%1$s %2$s', $item['name'], $this->row_actions($actions) );
@@ -64,6 +67,7 @@ class Country_List_Table extends Base\WP_List_Table {
     function get_sortable_columns() {
         $sortable_columns = array(
             'name' => array( 'name', false ),
+            'country_name' => array( 'country_name', false ),
         );
         return $sortable_columns;
     }
@@ -80,6 +84,6 @@ class Country_List_Table extends Base\WP_List_Table {
     }
 
     function no_items() {
-        _e( 'No countries found, dude.' );
+        _e( 'No customers found, dude.' );
     }
 }
