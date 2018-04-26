@@ -24,8 +24,6 @@ class Admin extends BaseController {
         
         $this->setSubPages();
 
-        $this->registerAdminPostAction();
-
         $this->settings
             ->addPages( $this->pages )
             ->withSubPage( 'Dashboard' )
@@ -58,32 +56,5 @@ class Admin extends BaseController {
                 'callback'      => array( $this->callbacks, 'adminCountry') 
             ]
         ];
-    }
-
-    public function registerAdminPostAction() {
-        // add_action('admin_post_noprov_contact_form', array( $this, 'contactFormPostHandler'));
-        // add_action('admin_post_contact_form', array( $this, 'contactFormPostHandler'));
-        add_action( 'wp_ajax_example_plugin_post', array( $this, 'contactFormPostHandler') );
-        add_action('admin_notices', array( $this, 'shapeSpace_add_settings_errors' ) );
-        
-    }
-
-    public function contactFormPostHandler() {
-        // wp_redirect( $_SERVER['HTTP_REFERER']);
-        echo $_POST["whatever"];
-        wp_die('error');
-    }
-
-    // display default admin notice
-    function shapeSpace_add_settings_errors() {
-        
-        settings_errors();
-        /**ob_start(); ?>
-            <div class="notice notice-success is-dismissible">
-                <p>Message</p>
-            </div>
-        <?php
-        echo ob_get_clean();
-        */
     }
 }
