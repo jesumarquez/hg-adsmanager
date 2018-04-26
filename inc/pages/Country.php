@@ -16,6 +16,7 @@ class Country extends BaseController {
     public function registerCountryPostAction() {
         add_action( 'wp_ajax_country_form_post', array( $this, 'postCountryFormHandler') );
         add_action( 'wp_ajax_country_form_put', array( $this, 'putCountryFormHandler') );
+        add_action( 'wp_ajax_country_form_delete', array( $this, 'deleteCountryFormHandler') );
     }
 
     public function postCountryFormHandler() {
@@ -38,6 +39,17 @@ class Country extends BaseController {
         }
         else{
             wp_send_json_error('Country Name is empty', 500);
+        }
+    }
+
+    public function deleteCountryFormHandler() {
+        if($_POST["countryId"]) {
+            $countryEntity = new Entities\CountryEntity();
+            $countryEntity->delete($_POST["countryId"]);
+            wp_send_json_success( 'OK' );
+        }
+        else{
+            wp_send_json_error('Id expected', 500);
         }
     }
 }
