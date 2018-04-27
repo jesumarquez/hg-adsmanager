@@ -11,17 +11,6 @@
                         <label for="customer-name">Name</label>
                         <input name="customer-name" id="customer-name" type="text" aria-required="true">
                         <p>Customer name.</p>
-                        <label for="country-id">Country</label>
-                        <select name="country-id" id="country-id">
-                        <?php
-                            $countryEntity = new HG\Base\Entities\CountryEntity();
-                            $countries = $countryEntity->getAll();
-
-                            foreach( $countries as $country ){
-                                echo "<option value=" . $country["id"] . ">" . $country["name"] ."</option>\n";
-                            }
-                        ?>
-                        </select>
                     </div>
                     <div class="submit">
                         <input type="submit" id="submit" name="submit" class="button button-primary" value="Add New Customer">

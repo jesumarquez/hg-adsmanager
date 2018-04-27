@@ -5,8 +5,7 @@ jQuery(document).ready(function($) {
 
         var data = {
             'action': 'customer_form_post',
-            'customerName': $("#customer-name").val(),     // We pass php values differently!
-            'countryId': $("#country-id").val()
+            'customerName': $("#customer-name").val()
         };
 
         $.ajax({
@@ -30,11 +29,10 @@ jQuery(document).ready(function($) {
     
 });
 
-function editCustomer(id, name, countryId) {
+function editCustomer(id, name) {
     event.preventDefault();
     jQuery('#customer-id').val(id);
     jQuery('#customer-name').val(name);
-    jQuery('#country-id').val(countryId);
     jQuery('#save').removeClass('hidden');  
     jQuery('#cancel').removeClass('hidden');  
     jQuery('#submit').addClass('hidden');  
@@ -52,8 +50,7 @@ function updateCustomer() {
     var data = {
         'action': 'customer_form_put',
         'customerId': jQuery("#customer-id").val(),     // We pass php values differently!
-        'customerName': jQuery("#customer-name").val(),     // We pass php values differently!
-        'countryId': jQuery("#country-id").val()     
+        'customerName': jQuery("#customer-name").val()
     };
 
     jQuery.ajax({

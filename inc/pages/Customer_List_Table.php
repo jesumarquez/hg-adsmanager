@@ -33,8 +33,7 @@ class Customer_List_Table extends Base\WP_List_Table {
     
     public function get_columns() {
         $columns = array(
-            'name' => 'Name',
-            'country_name' => 'Country'
+            'name' => 'Name'
         );
 
         return $columns;        
@@ -43,8 +42,6 @@ class Customer_List_Table extends Base\WP_List_Table {
     function column_default ( $item, $column_name ) {
         switch ($column_name) {
             case 'name':
-            case 'country_id':
-            case 'country_name':
                 return $item[ $column_name ];
             default:
                 return print_r( $item, true );
@@ -57,7 +54,7 @@ class Customer_List_Table extends Base\WP_List_Table {
         //           'delete'    => sprintf('<a href="?page=%s&action=%s&country=%s">Delete</a>',$_REQUEST['page'],'delete',$item['ID']),
         //       );
         $actions = array(
-            'edit'      => sprintf('<a href="#" onclick="editCustomer(%d, \'%s\', %d)">Edit</a>', $item['id'], $item['name'], $item['country_id']),
+            'edit'      => sprintf('<a href="#" onclick="editCustomer(%d, \'%s\')">Edit</a>', $item['id'], $item['name'] ),
             'delete'    => sprintf('<a href="#" onclick="deleteCustomer(%d)">Delete</a>', $item['id']),
         );
 
@@ -66,8 +63,7 @@ class Customer_List_Table extends Base\WP_List_Table {
     
     function get_sortable_columns() {
         $sortable_columns = array(
-            'name' => array( 'name', false ),
-            'country_name' => array( 'country_name', false ),
+            'name' => array( 'name', false )
         );
         return $sortable_columns;
     }

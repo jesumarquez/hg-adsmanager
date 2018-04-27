@@ -21,9 +21,9 @@ class Customer extends BaseController {
 
     public function postCustomerFormHandler() {
         //wp_redirect( $_SERVER['HTTP_REFERER']);
-        if($_POST["customerName"] && $_POST["countryId"]) {
+        if($_POST["customerName"]) {
             $customerEntity = new Entities\CustomerEntity();
-            $customerEntity->add($_POST["customerName"], $_POST["countryId"]);
+            $customerEntity->add($_POST["customerName"]);
             wp_send_json_success( 'OK' );
         }
         else{
@@ -32,9 +32,9 @@ class Customer extends BaseController {
     }
 
     public function putCustomerFormHandler() {
-        if($_POST["customerId"] && $_POST["customerName"] && $_POST["countryId"] ) {
+        if($_POST["customerId"] && $_POST["customerName"]) {
             $customerEntity = new Entities\CustomerEntity();
-            $customerEntity->update($_POST["customerId"], $_POST["customerName"], $_POST["countryId"] );
+            $customerEntity->update($_POST["customerId"], $_POST["customerName"]);
             wp_send_json_success( 'OK' );
         }
         else{
