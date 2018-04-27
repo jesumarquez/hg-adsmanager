@@ -11,7 +11,7 @@ class DataBase {
         $table_name = $wpdb->prefix . 'hg_adsmanager_country';
         $charset_collate = $wpdb->get_charset_collate();
         
-        define('HG_ADSMANAGER_DB_VERSION', '0.1.0');
+        define('HG_ADSMANAGER_DB_VERSION', 1);
         
         $sql[] = "CREATE TABLE $table_name (
             id mediumint(9) NOT NULL AUTO_INCREMENT,
@@ -40,7 +40,7 @@ class DataBase {
             'country', 
             'customer'
         ];
-        
+
         foreach ($name as $tables_names) {
             $wpdb->query("DROP TABLE IF EXISTS $name");
         }
