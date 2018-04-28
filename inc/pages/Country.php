@@ -31,7 +31,8 @@ class Country extends BaseController {
             }
         }
         catch ( \Exception $e ) {
-            wp_send_json_error($e->getMessage() , 500);
+            \error_log('HG AdsManger ' . $e->__toString());
+            wp_send_json_error('Ocurrio un error inesperado al intentar agregar el país' , 500);
         }
     }
 
