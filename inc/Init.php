@@ -9,6 +9,7 @@ final class Init {
 
     public static function get_services() {
         return [
+            Base\ErrorHandler::class,
             Pages\Admin::class,
             Pages\Country::class,
             Pages\Customer::class,

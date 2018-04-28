@@ -20,14 +20,18 @@ class Country extends BaseController {
     }
 
     public function postCountryFormHandler() {
-        //wp_redirect( $_SERVER['HTTP_REFERER']);
-        if($_POST["countryName"]) {
-            $countryEntity = new Entities\CountryEntity();
-            $countryEntity->add($_POST["countryName"]);
-            wp_send_json_success( 'OK' );
+        try {
+            if($_POST["countryName"]) {
+                $countryEntity = new Entities\CountryEntity();
+                $countryEntity->add($_POST["countryName"]);
+                wp_send_json_success( 'OK' );
+            }
+            else{
+                wp_send_json_error('Country Name is empty', 500);
+            }
         }
-        else{
-            wp_send_json_error('Country Name is empty', 500);
+        catch ( \Exception $e ) {
+            wp_send_json_error($e->getMessage() , 500);
         }
     }
 
