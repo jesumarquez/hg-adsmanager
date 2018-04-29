@@ -20,4 +20,7 @@ class AdminCallbacks extends BaseController {
     function adminPublication() {
         return require_once( "$this->plugin_path/templates/publication.php" );
     }
+    function adminNewPublication() {
+        return require_once( "$this->plugin_path/templates/new-publication.php" );
+    }
 }

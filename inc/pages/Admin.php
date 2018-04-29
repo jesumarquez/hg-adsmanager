@@ -70,6 +70,14 @@ class Admin extends BaseController {
                 'capability'    => 'manage_options',
                 'menu_slug'     => 'hg_adsmanager_publication',
                 'callback'      => array( $this->callbacks, 'adminPublication') 
+            ],
+            [
+                'parent_slug'   => 'hg_adsmanager_publication',
+                'page_title'    => 'HG Ads Manager',
+                'menu_title'    => 'New Publication',
+                'capability'    => 'manage_options',
+                'menu_slug'     => 'hg_adsmanager_new_publication',
+                'callback'      => array( $this->callbacks, 'adminNewPublication') 
             ]
         ];
     }
