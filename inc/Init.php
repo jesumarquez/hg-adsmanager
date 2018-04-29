@@ -13,6 +13,7 @@ final class Init {
             Pages\Admin::class,
             Pages\Country::class,
             Pages\Customer::class,
+            Pages\Publication::class,
             Base\Enqueue::class
         ];
     }
