@@ -3,7 +3,7 @@
     <hr class="wp-header-end">
     <div id="col-container" class="wp-clearfix">
         <div class="notice notice-error is-dismissible" hidden>
-            <p>Something has been updated, awesome</p>
+            <p></p>
         </div>
         <div id="col-left">
             <div class="form-wrap">
