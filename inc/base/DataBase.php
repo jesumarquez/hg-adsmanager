@@ -48,13 +48,19 @@ class DataBase {
                 call_to_action_url VARCHAR(2083) NOT NULL,
                 start_date datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
                 finish_date datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-                PRIMARY KEY  (id),
-                FOREIGN KEY (customer_id) REFERENCES $customer_table_name(id),
-                FOREIGN KEY (country_id) REFERENCES $country_table_name(id),
+                PRIMARY KEY  (id)
                 ) $charset_collate;";
 
             require_once('../wp-admin/includes/upgrade.php' );
             dbDelta( $sql );
+
+            $sql2 = "ALTER TABLE `$publication_table_name`
+            ADD CONSTRAINT `FK_hg_adsmanager_publication_customer` FOREIGN KEY (`customer_id`) REFERENCES `$customer_table_name` (`id`)";
+            $wpdb->query($sql);
+
+            $sql2 = "ALTER TABLE `$publication_table_name`
+            ADD CONSTRAINT `FK_hg_adsmanager_publication_country` FOREIGN KEY (`country_id`) REFERENCES `$country_table_name` (`id`)";
+            $wpdb->query($sql);
         }
         else {
             switch ($installed_db_version) {
@@ -81,7 +87,8 @@ class DataBase {
         global $wpdb;
         $tables_names = [
             'country', 
-            'customer'
+            'customer',
+            'publication'
         ];
 
         foreach ($name as $tables_names) {
