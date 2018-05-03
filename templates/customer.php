@@ -2,6 +2,9 @@
     <h1 class="wp-heading-inline"><?php _e('Customers', $this->plugin_text_domain); ?></h1>
     <hr class="wp-header-end">
     <div id="col-container" class="wp-clearfix">
+        <div class="notice notice-error is-dismissible" hidden>
+            <p></p>
+        </div>
         <div id="col-left">
             <div class="form-wrap">
                 <h2>Add New Customer</h2>

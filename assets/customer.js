@@ -15,12 +15,11 @@ jQuery(document).ready(function($) {
         })
         .done(function (resp){
             window.location.reload();
-            //$(" #nds_form_feedback ").html( "<div class='notice notice-success is-dismissible'><h2>The request was successful </h2>" + resp + '</div>');
-            // $(" #nds_form_feedback ").html( "<div class='notice notice-success is-dismissible'>             <p><strong>Settings saved.</strong></p>            <button type='button' class='notice-dismiss'>               <span class='screen-reader-text'>Dismiss this notice.</span>            </button>        </div>" );
         })
         .fail(function (resp){
-            $(" #hg_customer_form_feedback ").html( "<h2>" +  resp.responseJSON.data +  ".</h2><br>" );                  
-        })
+            $('.notice').show();
+            var message = resp.responseJSON ? resp.responseJSON.data : 'Ups! error inesperado';
+            $('.notice p').html( message );        })
         .always( function() {
             event.target.reset();
         });;
