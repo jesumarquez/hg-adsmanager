@@ -12,7 +12,7 @@ jQuery(document).ready(function($) {
             'callToActionUrl':  $("#call-to-action-url").val(),
             'startDate':        $("#start-date").val(),
             'endDate':          $("#finish-date").val(),
-            'active':           $("#active").is(":checked"),
+            'active':           $("#active").is(":checked") ? 1 : 0,
         };
 
         $.ajax({

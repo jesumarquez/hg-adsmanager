@@ -53,7 +53,8 @@ class Publication_List_Table extends Base\WP_List_Table {
             case 'finish_date':
                 return $item[ $column_name ];
             case 'active':
-                return '<input type="checkbox" disabled="disabled" />';
+                $checked = $item[ $column_name ] == 1 ? 'checked' : '';
+                return "<input type='checkbox' disabled='disabled' {$checked} />";
             default:
                 return print_r( $item, true );
         }
