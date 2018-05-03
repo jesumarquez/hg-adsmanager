@@ -15,9 +15,23 @@
                         <p>Publication name.</p>
                         <label for="customer-id">Customer</label>
                         <select name="customer-id" id="customer-id">
+                        <?php
+                            $customerEntity = new HG\Base\Entities\CustomerEntity();
+                            $customers = $customerEntity->getAll();
+                            foreach ($customers as $cust) {
+                                echo "<option value='{$cust['id']}'>{$cust['name']}</option>";
+                            }
+                        ?>
                         </select>
                         <label for="country-id">Country</label>
                         <select name="country-id" id="country-id">
+                        <?php
+                            $countryEntity = new HG\Base\Entities\CountryEntity();
+                            $countries = $countryEntity->getAll();
+                            foreach ($countries as $country) {
+                                echo "<option value='{$country['id']}'>{$country['name']}</option>";
+                            }
+                        ?>                        
                         </select>
                         <label for="image-url">Image</label>
                         <input name="image-url" id="image-url" type="text" aria-required="true">
@@ -38,7 +52,6 @@
                         <input type="submit" id="submit" name="submit" class="button button-primary" value="Save">
                     </div>
                 </form>
-                <div id="hg_publication_form_feedback"></div>
             </div>
         </div>
     </div>

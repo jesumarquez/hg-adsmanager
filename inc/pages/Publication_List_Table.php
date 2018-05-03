@@ -33,7 +33,12 @@ class Publication_List_Table extends Base\WP_List_Table {
     
     public function get_columns() {
         $columns = array(
-            'name' => 'Name'
+            'name' => 'Name',
+            'customer' => 'Customer',
+            'country' => 'Country',
+            'active' => 'Active',
+            'start_date' => 'Start Date',
+            'finish_date' => 'Finish Date'
         );
 
         return $columns;        
@@ -42,7 +47,13 @@ class Publication_List_Table extends Base\WP_List_Table {
     function column_default ( $item, $column_name ) {
         switch ($column_name) {
             case 'name':
+            case 'customer':
+            case 'country':
+            case 'start_date':
+            case 'finish_date':
                 return $item[ $column_name ];
+            case 'active':
+                return '<input type="checkbox" disabled="disabled" />';
             default:
                 return print_r( $item, true );
         }
