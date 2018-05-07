@@ -66,8 +66,9 @@ function updateCountry() {
         // $(" #nds_form_feedback ").html( "<div class='notice notice-success is-dismissible'>             <p><strong>Settings saved.</strong></p>            <button type='button' class='notice-dismiss'>               <span class='screen-reader-text'>Dismiss this notice.</span>            </button>        </div>" );
     })
     .fail(function (resp){
-        jQuery(" #hg_country_form_feedback ").html( "<h2>" +  resp.responseJSON.data +  ".</h2><br>" );                  
-    })
+        jQuery('.notice').show();
+        var message = resp.responseJSON ? resp.responseJSON.data : 'Ups! error inesperado';
+        jQuery('.notice p').html( message );    })
     .always( function() {
         event.target.reset();
     });;
@@ -91,8 +92,9 @@ function deleteCountry(id) {
         // $(" #nds_form_feedback ").html( "<div class='notice notice-success is-dismissible'>             <p><strong>Settings saved.</strong></p>            <button type='button' class='notice-dismiss'>               <span class='screen-reader-text'>Dismiss this notice.</span>            </button>        </div>" );
     })
     .fail(function (resp){
-        jQuery(" #hg_country_form_feedback ").html( "<h2>" +  resp.responseJSON.data +  ".</h2><br>" );                  
-    })
+        jQuery('.notice').show();
+        var message = resp.responseJSON ? resp.responseJSON.data : 'Ups! error inesperado';
+        jQuery('.notice p').html( message );    })
     .always( function() {
         event.target.reset();
     });;

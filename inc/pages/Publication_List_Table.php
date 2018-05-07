@@ -61,16 +61,14 @@ class Publication_List_Table extends Base\WP_List_Table {
     }
 
     function column_name($item) {
-        // $actions = array(
-        //           'edit'      => sprintf('<a href="?page=%s&action=%s&country=%s">Edit</a>',$_REQUEST['page'],'edit',$item['ID']),
-        //           'delete'    => sprintf('<a href="?page=%s&action=%s&country=%s">Delete</a>',$_REQUEST['page'],'delete',$item['ID']),
-        //       );
+
+        $title = sprintf('<a href="?page=hg_adsmanager_view_publication&id=%d"><strong>%s</strong></a>', $item['id'], $item['name']);
         $actions = array(
-            'edit'      => sprintf('<a href="#" onclick="editPublication(%d, \'%s\')">Edit</a>', $item['id'], $item['name'] ),
-            'delete'    => sprintf('<a href="#" onclick="deletePublication(%d)">Delete</a>', $item['id']),
+            'edit'      => sprintf('<a href="?page=hg_adsmanager_edit_publication&id=%d">Edit</a>', $item['id']),
+            'delete'    => sprintf('<a href="?page=hg_adsmanager_delete_publication&id=%d">Delete</a>', $item['id']),
         );
 
-        return sprintf('%1$s %2$s', $item['name'], $this->row_actions($actions) );
+        return sprintf('%1$s %2$s', $title, $this->row_actions($actions) );
     }
     
     function get_sortable_columns() {

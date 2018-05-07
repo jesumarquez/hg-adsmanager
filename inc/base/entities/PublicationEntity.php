@@ -22,6 +22,10 @@ class PublicationEntity {
         return $result;
     }
 
+    public function getById( $id ) {
+        return $this->wpdb->get_row( $this->wpdb->prepare( "SELECT * FROM $this->table_name WHERE id = %d", $id ) );
+    }
+
     public function add($name, $customerId, $countryId, $imageUrl, $callToActionUrl, $startDate, $endDate, $active) {
         $this->wpdb->insert(
             $this->table_name, 
@@ -48,10 +52,19 @@ class PublicationEntity {
         );
     }
 
-    public function update($id, $name) {
+    public function update($id, $name, $customerId, $countryId, $imageUrl, $callToActionUrl, $startDate, $endDate, $active) {
         $this->wpdb->update(
             $this->table_name,
-            array( 'name' => $name ),
+            array( 
+                'name'                  => $name,
+                'customer_id'           => $customerId,
+                'country_id'            => $countryId,
+                'active'                => $active,
+                'image_url'             => $imageUrl,
+                'call_to_action_url'    => $callToActionUrl,
+                'start_date'            => $startDate,
+                'finish_date'           => $endDate,
+            ),
             array( 'id' => $id )
         );
     }

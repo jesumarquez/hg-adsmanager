@@ -78,6 +78,30 @@ class Admin extends BaseController {
                 'capability'    => 'manage_options',
                 'menu_slug'     => 'hg_adsmanager_new_publication',
                 'callback'      => array( $this->callbacks, 'adminNewPublication') 
+            ],
+            [
+                'parent_slug'   => 'hg_adsmanager_publication',
+                'page_title'    => 'HG Ads Manager',
+                'menu_title'    => 'New Publication',
+                'capability'    => 'manage_options',
+                'menu_slug'     => 'hg_adsmanager_view_publication',
+                'callback'      => array( $this->callbacks, 'adminViewPublication') 
+            ],
+            [
+                'parent_slug'   => 'hg_adsmanager_publication',
+                'page_title'    => 'HG Ads Manager',
+                'menu_title'    => 'New Publication',
+                'capability'    => 'manage_options',
+                'menu_slug'     => 'hg_adsmanager_edit_publication',
+                'callback'      => array( $this->callbacks, 'adminEditPublication') 
+            ],
+            [
+                'parent_slug'   => 'hg_adsmanager_publication',
+                'page_title'    => 'HG Ads Manager',
+                'menu_title'    => 'New Publication',
+                'capability'    => 'manage_options',
+                'menu_slug'     => 'hg_adsmanager_delete_publication',
+                'callback'      => array( $this->callbacks, 'adminDeletePublication') 
             ]
         ];
     }
