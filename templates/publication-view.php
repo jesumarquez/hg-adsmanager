@@ -28,7 +28,7 @@
                         <select name="country-id" id="country-id" <?php echo $disabled; ?>>
                         <?php
                             $countryEntity = new HG\Base\Entities\CountryEntity();
-                            $countries = $countryEntity->getAll();
+                            $countries = $countryEntity->getAllActived();
                             foreach ($countries as $country) {
                                 $selected = $country['id'] == $countryId ? 'selected' : '';
                                 echo "<option value='{$country['id']}' {$selected}>{$country['name']}</option>";

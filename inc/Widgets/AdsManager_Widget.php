@@ -22,13 +22,15 @@ class AdsManager_Widget extends \WP_Widget {
         echo $args['before_widget'];
 
         //get country code
-        $ipaddress = '201.216.208.145'; // $this->get_client_ip();
+        // $ipaddress = '148.214.255.255'; // ip mexico
+        $ipaddress = '201.216.208.145'; // ip argentina
+        // $this->get_client_ip();
         $country_code = $this->get_country_code( $ipaddress );        
         
         $publicationEntity = new \HG\Base\Entities\PublicationEntity();
-        $publication = $publicationEntity->getById(3);
+        $publication = $publicationEntity->getRandomPublicationByCountryCode($country_code);
 
-        echo "<img src='{$publication->image_url}' />";
+        echo "<a href='{$publication->call_to_action_url}'><img src='{$publication->image_url}' /></a>";
         
         echo $args['after_widget'];
     }

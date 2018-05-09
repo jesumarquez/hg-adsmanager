@@ -16,16 +16,23 @@ class CountryEntity {
     }
 
     public function getAll(){
-        $result = $this->wpdb->get_results("SELECT id, name FROM {$this->table_name}", ARRAY_A );
+        $result = $this->wpdb->get_results("SELECT id, name, code, active FROM {$this->table_name}", ARRAY_A );
         return $result;
     }
 
-    public function add($name){
+    public function getAllActived() {
+        $result = $this->wpdb->get_results("SELECT id, name, code, active FROM {$this->table_name} WHERE active = 1", ARRAY_A );
+        return $result;
+    }
+
+    public function add($name, $code, $active){
         $this->wpdb->insert(
             $this->table_name, 
             array(
                 'time' => current_time('mysql'),
-                'name' => $name
+                'name' => $name,
+                'code' => $code,
+                'active' => $active
             )
         );        
     }
@@ -39,10 +46,14 @@ class CountryEntity {
         );
     }
 
-    public function update($id, $name) {
+    public function update($id, $name, $code, $active) {
         $this->wpdb->update(
             $this->table_name,
-            array( 'name' => $name ),
+            array( 
+                'name' => $name, 
+                'code' => $code,
+                'active' => $active
+             ),
             array( 'id' => $id )
         );
     }

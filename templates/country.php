@@ -14,6 +14,11 @@
                         <label for="country-name">Name</label>
                         <input name="country-name" id="country-name" type="text" aria-required="true">
                         <p>Country name.</p>
+                        <label for="code">Code</label>
+                        <input name="code" id="code" type="text" aria-required="true" maxlength="2">
+                        <p>ISO Alpha-2 Country Code.</p>
+                        <label for="active">Active</label>
+                        <input name="active" id="active" type="checkbox" aria-required="true" >
                     </div>
                     <div class="submit">
                         <input type="submit" id="submit" name="submit" class="button button-primary" value="Add New Country">

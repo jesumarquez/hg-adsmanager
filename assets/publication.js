@@ -21,7 +21,7 @@ jQuery(document).ready(function($) {
             data:   data
         })
         .done(function (resp){
-            window.location.reload();
+            window.location.href = '?page=hg_adsmanager_publication';
         })
         .fail(function (resp){
             $('.notice').show();

@@ -21,9 +21,12 @@ class Country extends BaseController {
 
     public function postCountryFormHandler() {
         try {
-            if($_POST["countryName"]) {
+            if($_POST["countryName"]
+            && $_POST["code"] 
+            && ($_POST["active"] == "1"  || $_POST["active"] == "0")
+            ) {
                 $countryEntity = new Entities\CountryEntity();
-                $countryEntity->add($_POST["countryName"]);
+                $countryEntity->add($_POST["countryName"], $_POST["code"], $_POST["active"]);
                 wp_send_json_success( 'OK' );
             }
             else{
@@ -37,13 +40,16 @@ class Country extends BaseController {
     }
 
     public function putCountryFormHandler() {
-        if($_POST["countryId"] && $_POST["countryName"] ) {
+        if($_POST["countryId"] 
+        && $_POST["countryName"] 
+        && $_POST["code"]
+        && ($_POST["active"] == "1"  || $_POST["active"] == "0")) {
             $countryEntity = new Entities\CountryEntity();
-            $countryEntity->update($_POST["countryId"], $_POST["countryName"]);
+            $countryEntity->update($_POST["countryId"], $_POST["countryName"], $_POST["code"], $_POST["active"]);
             wp_send_json_success( 'OK' );
         }
         else{
-            wp_send_json_error('Country Name is empty', 500);
+            wp_send_json_error('Some parameters are empty', 500);
         }
     }
 

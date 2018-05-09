@@ -26,6 +26,14 @@ class PublicationEntity {
         return $this->wpdb->get_row( $this->wpdb->prepare( "SELECT * FROM $this->table_name WHERE id = %d", $id ) );
     }
 
+    public function getRandomPublicationByCountryCode( $countryCode ) {
+        $country_table = $this->wpdb->prefix . 'hg_adsmanager_country';
+        return $this->wpdb->get_row( $this->wpdb->prepare( "SELECT p.* FROM $this->table_name p
+                                                            INNER JOIN $country_table c ON c.id = p.country_id
+                                                            WHERE c.code = %s
+                                                            ORDER BY RAND() LIMIT 1", $countryCode ) );
+    }
+
     public function add($name, $customerId, $countryId, $imageUrl, $callToActionUrl, $startDate, $endDate, $active) {
         $this->wpdb->insert(
             $this->table_name, 

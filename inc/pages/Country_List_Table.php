@@ -33,7 +33,9 @@ class Country_List_Table extends Base\WP_List_Table {
     
     public function get_columns() {
         $columns = array(
-            'name' => 'Name'
+            'name' => 'Name',
+            'code' => 'Code',
+            'active' => 'Active'
         );
 
         return $columns;        
@@ -42,7 +44,12 @@ class Country_List_Table extends Base\WP_List_Table {
     function column_default ( $item, $column_name ) {
         switch ($column_name) {
             case 'name':
+            case 'code':
                 return $item[ $column_name ];
+            case 'active':
+                $checked = $item[ $column_name ] == 1 ? 'checked' : '';
+                return "<input type='checkbox' disabled='disabled' {$checked} />";
+                
             default:
                 return print_r( $item, true );
         }
@@ -54,7 +61,7 @@ class Country_List_Table extends Base\WP_List_Table {
         //           'delete'    => sprintf('<a href="?page=%s&action=%s&country=%s">Delete</a>',$_REQUEST['page'],'delete',$item['ID']),
         //       );
         $actions = array(
-            'edit'      => sprintf('<a href="#" onclick="editCountry(%d,\'%s\')">Edit</a>', $item['id'], $item['name']),
+            'edit'      => sprintf('<a href="#" onclick="editCountry(%d,\'%s\',\'%s\',\'%s\')">Edit</a>', $item['id'], $item['name'], $item['code'], ($item['active'] == 1 ? 'checked' : '') ),
             'delete'    => sprintf('<a href="#" onclick="deleteCountry(%d)">Delete</a>', $item['id']),
         );
 
