@@ -14,6 +14,7 @@ final class Init {
             Pages\Country::class,
             Pages\Customer::class,
             Pages\Publication::class,
+            Pages\AdsWidget::class,
             Base\Enqueue::class
         ];
     }
