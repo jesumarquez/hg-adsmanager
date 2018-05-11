@@ -58,11 +58,11 @@ class DataBase {
 
             $sql2 = "ALTER TABLE `$publication_table_name`
             ADD CONSTRAINT `FK_hg_adsmanager_publication_customer` FOREIGN KEY (`customer_id`) REFERENCES `$customer_table_name` (`id`)";
-            $wpdb->query($sql);
+            $wpdb->query($sql2);
 
             $sql2 = "ALTER TABLE `$publication_table_name`
             ADD CONSTRAINT `FK_hg_adsmanager_publication_country` FOREIGN KEY (`country_id`) REFERENCES `$country_table_name` (`id`)";
-            $wpdb->query($sql);
+            $wpdb->query($sql2);
 
             $wpdb->insert( $country_table_name, array('time'=> current_time('mysql'), 'name'=>'Afghanistan', 'code'=>'AF', 'active' => 0) );
             $wpdb->insert( $country_table_name, array('time'=> current_time('mysql'), 'name'=>'Aland Islands', 'code'=>'AX', 'active' => 0) );
