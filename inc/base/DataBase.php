@@ -343,7 +343,8 @@ class DataBase {
         ];
 
         foreach ($name as $tables_names) {
-            $wpdb->query("DROP TABLE IF EXISTS $name");
+            $tbl_name = $wpdb->prefix . 'hg_adsmanager_' . $name;
+            $wpdb->query("DROP TABLE IF EXISTS $tbl_name");
         }
 
         if(get_option('HG_ADSMANAGER_DB_VERSION'))
