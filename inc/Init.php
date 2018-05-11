@@ -26,6 +26,7 @@ final class Init {
             
             if( method_exists( $service, 'register') ) {
                 $service->register();
+                \error_log("{$class} registered!");
             }
         }
     }
