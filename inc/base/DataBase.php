@@ -337,12 +337,12 @@ class DataBase {
     public static function uninstall() {
         global $wpdb;
         $tables_names = [
+            'publication',
             'country', 
-            'customer',
-            'publication'
+            'customer'
         ];
 
-        foreach ($name as $tables_names) {
+        foreach ($tables_names as $name) {
             $tbl_name = $wpdb->prefix . 'hg_adsmanager_' . $name;
             $wpdb->query("DROP TABLE IF EXISTS $tbl_name");
         }
