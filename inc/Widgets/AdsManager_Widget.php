@@ -30,7 +30,9 @@ class AdsManager_Widget extends \WP_Widget {
         $publicationEntity = new \HG\Base\Entities\PublicationEntity();
         $publication = $publicationEntity->getRandomPublicationByCountryCode($country_code);
 
-        echo "<a href='{$publication->call_to_action_url}'><img src='{$publication->image_url}' /></a>";
+        if($publication){
+            echo "<a href='{$publication->call_to_action_url}'><img src='{$publication->image_url}' /></a>";
+        }
         
         echo $args['after_widget'];
     }
