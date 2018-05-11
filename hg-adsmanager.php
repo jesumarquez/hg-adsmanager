@@ -32,6 +32,6 @@ function deactivate_adsmanager_plugin() {
 register_deactivation_hook( __FILE__, 'deactivate_adsmanager_plugin' );
 
 // registration
-if( class_exists( 'Inc\\Init' ) ) { 
+if( class_exists( 'HG\\Init' ) ) { 
     HG\Init::register_services();
 }
