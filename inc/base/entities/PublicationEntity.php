@@ -31,6 +31,9 @@ class PublicationEntity {
         return $this->wpdb->get_row( $this->wpdb->prepare( "SELECT p.* FROM $this->table_name p
                                                             INNER JOIN $country_table c ON c.id = p.country_id
                                                             WHERE c.code = %s
+                                                            AND p.active = 1
+                                                            AND c.active = 1
+                                                            AND now() BETWEEN p.start_date AND p.finish_date
                                                             ORDER BY RAND() LIMIT 1", $countryCode ) );
     }
 
