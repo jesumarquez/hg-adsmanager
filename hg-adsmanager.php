@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Ads Manager
+ * Plugin Name: HG Ads Manager
  * Plugin URI: http://hornerogeek.com.ar/adsmanager
  * Description: Administrador de adsense.
  * Version: 0.1.0
